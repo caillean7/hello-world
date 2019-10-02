@@ -1,0 +1,58 @@
+BACKUP ~ranger_thief\backup~
+AUTHOR ~lynxlynxlynx~
+
+VERSION @0
+LANGUAGE ~English~ ~english~ ~ranger_thief/tra/english.tra~
+
+BEGIN ~Ranger / Thief multiclass for gemrb~
+
+// ******************************************
+// first all the game table changes
+APPEND ~alignmnt.2da~ ~RANGER_THIEF 0       0       0       1       0       0       1       0       0~ 
+UNLESS ~RANGER_THIEF~
+
+APPEND_COL ~weapprof.2da~ ~$ $ RANGER_THIEF 0 2 1 1 1 1 1 1 1 1 2 1 1 2 2 2 1 2 1 1 1 1 1 1 2 2 1 1 1 1 2 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0~
+UNLESS ~RANGER_THIEF~
+
+APPEND ~profs.2da~ ~RANGER_THIEF 2 4~
+UNLESS ~RANGER_THIEF~
+
+APPEND ~xpcap.2da~ ~RANGER_THIEF -1~
+UNLESS ~RANGER_THIEF~
+
+APPEND_COL ~25stweap.2da~ ~$ $ RANGER_THIEF LEAT14 * HELM07 BAG28 RING06 RING2731 CLCK02 BOOT01 AMUL19 BRAC16 BELT06 AROW11,40 BULL03,40 BOLT06,40 POTN52,5 * * DAGG12 SW1H28 STAF08~
+UNLESS ~RANGER_THIEF~
+
+// if you want dualclassing
+// modify the two abdc* tables, dualclass.2da
+// then also change gemrb's classes.2da and add in the new MC_WAS_ID
+
+// modify the other ab* tables if you want different stat prereqs/mods
+
+// modify lu* for HLAs
+// lazy: no special table (lusm0.2da), since currently gemrb automatically uses the hlas from all classes
+// WTF @ lunumab? is the original so retarded too?
+APPEND ~luabbr.2da~ ~RANGER_THIEF RTH~ UNLESS ~RANGER_THIEF~
+APPEND ~lunumab.2da~ ~RANGER_THIEF 15          1          99           1~ UNLESS ~RANGER_THIEF~
+
+// ******************************************
+// GemRB unhardcoded table changes
+
+// avatar class value (partial Animation ID)
+APPEND ~avprefc.2da~ ~RANGER_THIEF          0x300~
+
+// class details
+APPEND ~classes.2da~ ~RANGER_THIEF PLACEHOLDER_1 PLACEHOLDER_2 PLACEHOLDER_3 * 2056 21 * 0x200000 -1 1 1 1 1 1 1 1 1~
+COPY_EXISTING ~classes.2da~ ~override~
+  REPLACE ~PLACEHOLDER_1~ @1
+  REPLACE ~PLACEHOLDER_2~ @2
+  REPLACE ~PLACEHOLDER_3~ @3
+
+// class skills
+APPEND ~clskills.2da~ ~RANGER_THIEF   MXSPLRAN    *    *   89000   *    SKILLS    *   0     1      HATERACE  RN01,TH01   -2    2500000    SKILLRNG 0	*~
+
+// action bar setup
+APPEND ~qslots.2da~ ~RANGER_THIEF       22         0          1          2          8          9          11         12        13~
+
+// thieving skills
+APPEND_COL ~skills.2da~ ~$ $ RANGER_THIEF 40 25 1 1 1 1 1 1 1~
